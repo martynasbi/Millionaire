@@ -5,8 +5,8 @@
 The program will provide you 10 questions and 4 answers, accordingly with letters: ```A, B, C and D```.
 
 During the game you can reach two safe zones: **25 000 Eur** and **180 000 Eur**:
-    * First safe zone will be reached, if you correctly answer first 4 questions;
-    * Second safe zone will be reached, if you correctly answer first 7 questions.
+* First safe zone will be reached, if you correctly answer first 4 questions;
+* Second safe zone will be reached, if you correctly answer first 7 questions.
 
 Each questions value is provided in the table down below.
 

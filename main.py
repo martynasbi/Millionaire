@@ -36,7 +36,7 @@ def start_game():
     win_amount = 0
     correct_answers = 0
     question_number = 0
-     
+    
     questionaire_easy = read_questions("easy_questions.txt")
     questionaire_medium = read_questions("medium_questions.txt")
     questionaire_hard = read_questions("hard_questions.txt")
@@ -57,10 +57,11 @@ def provide_question(questionaire, win_amount, tries_left, question_number, corr
     QUESTION_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     ANSWER_LETTERS = ["A", "B", "C", "D"]
 
-    question = (random.choice(questionaire))
+    question = random.choice(questionaire)
     questionaire.remove(question)
     provided_question = QUESTION_NUMBERS[question_number]
     print(str(provided_question) + ". " + question["question"])
+
     random_answers = random.sample(question["answers"], len(question["answers"]))
     print("\nAtsakymų variantai:")
 

@@ -1,8 +1,5 @@
 import random
 
-# Funkcija klausianti, ar vartotojas nori pradėti žaidimą. 
-# Jei atsakymas neigiamas - programa užsidaro. 
-
 def ar_zaisti():
     
     while True:
@@ -15,9 +12,6 @@ def ar_zaisti():
         else:
             continue    
             
-# Funkcija klausianti, ar vartotojas nori žaisti žaidimą iš naujo. 
-# Jei atsakymas neigiamas - programa užsidaro.
-
 def ar_kartoti():
     
     while True:
@@ -30,8 +24,6 @@ def ar_kartoti():
         else:
             continue 
 
-# Funkcija, kuri spausdina žaidimo pradžią ir supažindina vartotoją su taisyklėmis.
-
 def taisykles():
     
     print("********************************************************************************************************************************************")
@@ -40,18 +32,13 @@ def taisykles():
     print(f"\nIš viso Jūs turite 3 bandymus. Išnaudojus visus bandymus, žaidimas bus baigtas.")
     print("********************************************************************************************************************************************")
 
-# Funkcija, kuri laiko pradinius duomenis - klausimus, atsakymus ir loopina per kiekvieną klausimą 
-
 def pradeti_zaidima():
     
     bandymu_skaicius = 3
     laimeta_suma = 0
     laimeti_kartai = 0
     klausimo_numeris = 0
-    
-    # Surašyti trijų lygių klausimynai su klausimu, teisingu atsakymu ir atsakymų variantais.
-    # Nested listai, susidarantys iš tuples, kuriuose taip pat yra listų.
-    
+     
     klausimynas_easy = [ { "klausimas": "Kas atstovauja indų kino meną?",
                            "atsakymas": "Bolivudas",
                            "atsakymai": ["Bolivudas",
@@ -122,9 +109,6 @@ def pradeti_zaidima():
                                          "Auksas",
                                          "Platina" ]}]
     
-    # Pasidaroma kopija kiekvieno klausimyno ir loopinama per juos
-    # Jei pirmas klausimynas pereinamas sėkmingai, einama prie kito klausimyno
-    
     for klausimas in klausimynas_easy.copy():
         klausimynas_easy, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai = uzduoti_klausima(
             klausimynas_easy, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai)
@@ -135,43 +119,27 @@ def pradeti_zaidima():
         klausimynas_hard, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai = uzduoti_klausima(
             klausimynas_hard, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai)
 
-# Funkcija, pateikianti klausimus ir atsakymus bei tikrinanti, ar vartotojo atsakymas yra teisingas
-
 def uzduoti_klausima(klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai):
     
     laimimos_sumos = [1000, 3000, 6000, 15000, 30000, 50000, 75000, 130000, 250000, 440000]
     klausimo_numeriai = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     atsakymu_raides = ["A", "B", "C", "D"]
     
-    # Pasidarome, kad klausimą iš klausimyno trauktų random tvarka
-    # ir išimam iš klausimyno, kad nesikartotų
-    
     klausimas = (random.choice(klausimynas))
     klausimynas.remove(klausimas)
     pirmas_klausimas = klausimo_numeriai[klausimo_numeris]
     print(str(pirmas_klausimas) + ". " + klausimas["klausimas"])
     
-    # Pasidarome, kad atsakymus trauktų random tvarka
-
     random_atsakymai = random.sample(klausimas["atsakymai"], len(klausimas["atsakymai"]))
     print("\nAtsakymų variantai:")
-    
-    # Loopas, kuris eina per abu listus iš karto
-    # ir atitinkamai sumatchina atsakymo raidę su random tvarka išdėstytais atsakymais
-    
+
     for raide, atsakymas in zip(atsakymu_raides, random_atsakymai):
         print(f"{raide}. {atsakymas}")
     print()
-    
-    # Klausimo ciklas
-    
+
     while True:
         
-        # Atsakymo išgavimo ciklas
-        
         while True:
-            
-            # Pirmiausia apsibrėžiama, kas nutinka, kai išnaudojami visi bandymai
             
             if bandymu_skaicius == 0:
                 print("Jūs išnaudojote visus bandymus.\n")
@@ -196,15 +164,10 @@ def uzduoti_klausima(klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numer
             atsakymo_raide = input("Kai norėsite stabdyti žaidimą, pasirinkite: S.\nPasirinkite atsakymo variantą: A, B, C ar D.\n").upper()
             if atsakymo_raide in atsakymu_raides:
                 
-                # Pasiverčiam atsakymo raidę i atsakymą, atimdami "A" reikšmę, kuri turi atitikmenį 65.
-                # Pavyzdžiui, jei vartotojo pasirinkta atsakymo raidė bus ord("B"), atsakymas bus 66-65 = 1 arba "B"
-                
                 atsakymas = random_atsakymai[ord(atsakymo_raide)-65]
                 print("Jūs pasirinkote atsakymą:",atsakymas)
                 break
                 
-            # Apsibrėžiama, kas nutinka, jei vartotojas nori sustabdyti žaidimą
-            
             elif atsakymo_raide == "S":
                 if laimeta_suma == 0:
                     print("*************************************************************************************************")
@@ -219,8 +182,6 @@ def uzduoti_klausima(klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numer
             else:
                 print("Nėra tokio pasirinkimo.\n")
                 
-        # Apsibrėžiama, kas nutinka, jei klausimas sutampa su atsakymu 
-        
         if klausimas["atsakymas"] == atsakymas:
             print("\nJūsų atsakymas yra teisingas!")
             laimeta_suma += laimimos_sumos[laimeti_kartai]
@@ -234,9 +195,7 @@ def uzduoti_klausima(klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numer
                 print("$Sveikiname, Jūs laimėjote milijoną!$")
                 print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
                 ar_kartoti()
-                
-        # Apsibrėžiama, kas nutinka, jei klausimas nesutampa su atsakymu     
-            
+                 
         else:
             bandymu_skaicius -= 1
             if bandymu_skaicius > 1:
@@ -246,8 +205,6 @@ def uzduoti_klausima(klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numer
             else:
                 print(f"\nDeja, Jūsų atsakymas yra neteisingas.\n")
     return klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai
-
-# Programos pradžia
 
 if __name__ == "__main__":
     taisykles()

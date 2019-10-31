@@ -1,28 +1,19 @@
 import random
 
-def ar_zaisti():
-    
+def ar_zaisti(start):
+    beginning = 0
     while True:
-        pradeti = input("\nAr norite pradėti žaidimą: TAIP / NE\n").upper()
-        if "T" in pradeti:
+        if start == str(beginning):
+            atsakymas = input("\nAr norite pradėti žaidimą: TAIP / NE\n").upper()
+        else:
+            atsakymas = input("\nAr norite kartoti žaidimą: TAIP / NE\n").upper()
+        if "T" in atsakymas:
             pradeti_zaidima()
-        elif "N" in pradeti:
+        elif "N" in atsakymas:
             print ("\nIki. Lauksime Jūsų sugrįžtant!")
             exit()
         else:
-            continue    
-            
-def ar_kartoti():
-    
-    while True:
-        kartoti = input("\nAr norite kartoti žaidimą: TAIP / NE\n").upper()
-        if "T" in kartoti:
-            pradeti_zaidima()
-        elif "N" in kartoti:
-            print ("\nIki. Lauksime Jūsų sugrįžtant!")
-            exit()
-        else:
-            continue 
+            continue
 
 def taisykles():
     
@@ -148,18 +139,18 @@ def uzduoti_klausima(klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numer
                     print("************************************")
                     print(f"Jūs laimėjote {laimeta_suma} Eur. Sveikiname!")
                     print("************************************")
-                    ar_kartoti()
+                    ar_zaisti(1)
                 elif laimeta_suma >= 25000:
                     laimeta_suma = 25000
                     print("************************************")
                     print(f"Jūs laimėjote {laimeta_suma} Eur. Sveikiname!")
                     print("************************************")
-                    ar_kartoti()
+                    ar_zaisti(1)
                 else:
                     print("*****************************************")
                     print("Deja šį kartą Jūs nieko nelaimėjote.\n\nAčiū už dalyvavimą, bandykite kitą kartą!")
                     print("*****************************************")
-                    ar_kartoti()
+                    ar_zaisti(1)
                     
             atsakymo_raide = input("Kai norėsite stabdyti žaidimą, pasirinkite: S.\nPasirinkite atsakymo variantą: A, B, C ar D.\n").upper()
             if atsakymo_raide in atsakymu_raides:
@@ -173,12 +164,12 @@ def uzduoti_klausima(klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numer
                     print("*************************************************************************************************")
                     print(f"Jūs nusprendėte nebetęsti žaidimo. Deja šį kartą Jūs nieko nelaimėjote. Bandykite sekantį kartą.")
                     print("*************************************************************************************************")
-                    ar_kartoti()
+                    ar_zaisti(1)
                 else:
                     print("*********************************************************************************")
                     print(f"Jūs nusprendėte nebetęsti žaidimo. Jūs laimėjote {laimeta_suma} Eur. Sveikiname!")
                     print("*********************************************************************************")
-                    ar_kartoti()
+                    ar_zaisti(1)
             else:
                 print("Nėra tokio pasirinkimo.\n")
                 
@@ -194,7 +185,7 @@ def uzduoti_klausima(klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numer
                 print("\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
                 print("$Sveikiname, Jūs laimėjote milijoną!$")
                 print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-                ar_kartoti()
+                ar_zaisti(1)
                  
         else:
             bandymu_skaicius -= 1
@@ -208,5 +199,5 @@ def uzduoti_klausima(klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numer
 
 if __name__ == "__main__":
     taisykles()
-    ar_zaisti()
+    ar_zaisti(0)
     pradeti_zaidima()

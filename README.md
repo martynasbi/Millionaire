@@ -10,7 +10,7 @@ During the game you can reach two safe zones: **25 000 Eur** and **180 000 Eur**
 
 Each questions value is provided in the table down below.
 
-| Question | Value |
+| No. | Value |
 | ------ | ------ |
 | 1. | 1 000 Eur |
 | 2. | 4 000 Eur |

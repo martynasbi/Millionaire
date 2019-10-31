@@ -1,0 +1,3 @@
+{ "klausimas": "\"Šimtas zuikių susirinko, Net žalia girelė linko\". Kas poemėlės autorius?","atsakymas": "Eduardas Mieželaitis","atsakymai": ["Eduardas Mieželaitis","Martynas Vainilaitis","Kostas Kubilinskas","Vytė Nemunėlis" ] }
+{ "klausimas": "Kurioje valstybėje sesoto kalba yra valstybinė?","atsakymas": "Lesote","atsakymai": ["Lesote","Somalyje","Sesote","Libijoje" ]}
+{ "klausimas": "Kuris iš šių metalų netirpsta net \"karališkajame vandenyje\"?","atsakymas": "Iridis","atsakymai": ["Iridis","Sidabras","Auksas","Platina" ]}

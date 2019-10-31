@@ -1,0 +1,4 @@
+{ "klausimas": "Kas atstovauja indų kino meną?", "atsakymas": "Bolivudas", "atsakymai": ["Bolivudas", "Holivudas", "Golivudas", "Indivudas" ] }
+{ "klausimas": "Kokios šalies veikėjas buvo Leninas?", "atsakymas": "Rusijos", "atsakymai": ["Rusijos", "Ukrainos", "Čekijos", "Gruzijos" ]}
+{ "klausimas": "Kaip vadinama istorijos disciplina padedanti nustatyti įvykių eiliškumą ir datas?","atsakymas": "Chronologija","atsakymai": ["Chronologija","Enkaustika","Bonistika","Paleografija" ]}
+{ "klausimas": "Kaip vadinamas didžiausio ir mažiausio dydžio skirtumas?","atsakymas": "Amplitudė","atsakymai": ["Amplitudė","Atogrąža","Speigratis","Brizas" ]}

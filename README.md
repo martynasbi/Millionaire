@@ -1,6 +1,6 @@
-## The game "Who wants to be a Millionaire?"
+# The game "Who wants to be a Millionaire?"
 
-# Introduction
+## Introduction
 
 The program will provide you 10 questions and 4 answers, accordingly with letters: ```A, B, C and D```.
 
@@ -25,13 +25,13 @@ Each questions value is provided in the table down below.
 
 In case you want to stop the game and receive reached value - type ```S```. 
 
-# How to start the game
+## How to start the game
 
 1. Make sure you have all the files in one folder;
 2. Using terminal with ```CD``` open the correct folder. Hint: you can go back to previous folder with command ```CD ..```;
 3. In terminal type ```python main.py```.
 
-# Conclusion
+## Conclusion
 
 The game runs in Lithuanian language. In the beginning of the game you will be asked if you want to start the game. If you answer ```TAIP```, the game will start and you will be given the first question. If your input will be ```NE``` - the program will close.
 

@@ -4,13 +4,13 @@ import json
 def read_questions(questionaire):
     with open(questionaire, encoding='utf-8') as f:
         question_lines = f.read().splitlines()
-    questions = [json.loads(question) for question in question_lines ]
+    questions = [json.loads(question) for question in question_lines]
     return questions
 
 def to_start(start):
     beginning = 0
     while True:
-        if start == str(beginning):
+        if start == beginning:
             answer = input("\nAr norite pradėti žaidimą: TAIP / NE\n").upper()
         else:
             answer = input("\nAr norite kartoti žaidimą: TAIP / NE\n").upper()
@@ -56,6 +56,7 @@ def provide_question(questionaire, win_amount, tries_left, question_number, corr
     WIN_AMOUNTS = [1000, 3000, 6000, 15000, 30000, 50000, 75000, 130000, 250000, 440000]
     QUESTION_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     ANSWER_LETTERS = ["A", "B", "C", "D"]
+
     question = (random.choice(questionaire))
     questionaire.remove(question)
     provided_question = QUESTION_NUMBERS[question_number]
@@ -122,14 +123,14 @@ def provide_question(questionaire, win_amount, tries_left, question_number, corr
         else:
             tries_left -= 1
             if tries_left > 1:
-                print(f"\nDeja, Jūsų answer yra neteisingas.\n-------------------------------------\nJums liko {tries_left} bandymai.\n")
+                print(f"\nDeja, Jūsų atsakymas yra neteisingas.\n-------------------------------------\nJums liko {tries_left} bandymai.\n")
             elif tries_left == 1:
-                print("\nDeja, Jūsų answer yra neteisingas.\n-------------------------------------\nJums liko paskutinis bandymas.\n")
+                print("\nDeja, Jūsų atsakymas yra neteisingas.\n-------------------------------------\nJums liko paskutinis bandymas.\n")
             else:
-                print(f"\nDeja, Jūsų answer yra neteisingas.\n")
+                print(f"\nDeja, Jūsų atsakymas yra neteisingas.\n")
     return questionaire, win_amount, tries_left, question_number, correct_answers
 
 if __name__ == "__main__":
     introduction()
-    to_start("0")
+    to_start(0)
     start_game()

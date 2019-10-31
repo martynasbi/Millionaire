@@ -1,28 +1,28 @@
 import random
 import json
 
-def read_questions(klausimynas):
-    with open(klausimynas, encoding='utf-8') as f:
-        klausimu_eilutes = f.read().splitlines()
-    klausimai = [json.loads(klausimas) for klausimas in klausimu_eilutes ]
-    return klausimai
+def read_questions(questionaire):
+    with open(questionaire, encoding='utf-8') as f:
+        question_lines = f.read().splitlines()
+    questions = [json.loads(question) for question in question_lines ]
+    return questions
 
-def ar_zaisti(start):
+def to_start(start):
     beginning = 0
     while True:
-        if int(start) == beginning:
-            atsakymas = input("\nAr norite pradėti žaidimą: TAIP / NE\n").upper()
+        if start == str(beginning):
+            answer = input("\nAr norite pradėti žaidimą: TAIP / NE\n").upper()
         else:
-            atsakymas = input("\nAr norite kartoti žaidimą: TAIP / NE\n").upper()
-        if "T" in atsakymas:
-            pradeti_zaidima()
-        elif "N" in atsakymas:
+            answer = input("\nAr norite kartoti žaidimą: TAIP / NE\n").upper()
+        if "T" in answer:
+            start_game()
+        elif "N" in answer:
             print ("\nIki. Lauksime Jūsų sugrįžtant!\n")
             exit()
         else:
             continue
 
-def taisykles():
+def introduction():
     
     print("********************************************************************************************************************************************")
     print("Sveiki atvykę į žaidimą \"Kas laimės milijoną?\"!\n\nŽaidimo metu Jums bus pateikta 10 klausimų ir 4 atsakymų variantai.")
@@ -30,106 +30,106 @@ def taisykles():
     print(f"\nIš viso Jūs turite 3 bandymus. Išnaudojus visus bandymus, žaidimas bus baigtas.")
     print("********************************************************************************************************************************************")
 
-def pradeti_zaidima():
+def start_game():
     
-    bandymu_skaicius = 3
-    laimeta_suma = 0
-    laimeti_kartai = 0
-    klausimo_numeris = 0
+    tries_left = 3
+    win_amount = 0
+    correct_answers = 0
+    question_number = 0
      
-    klausimynas_easy = read_questions("easy_klausimai.txt")
-    klausimynas_medium = read_questions("medium_klausimai.txt")
-    klausimynas_hard = read_questions("hard_klausimai.txt")
+    questionaire_easy = read_questions("easy_questions.txt")
+    questionaire_medium = read_questions("medium_questions.txt")
+    questionaire_hard = read_questions("hard_questions.txt")
     
-    for klausimas in klausimynas_easy.copy():
-        klausimynas_easy, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai = uzduoti_klausima(
-            klausimynas_easy, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai)
-    for klausimas in klausimynas_medium.copy():
-        klausimynas_medium, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai = uzduoti_klausima(
-            klausimynas_medium, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai)
-    for klausimas in klausimynas_hard.copy():
-        klausimynas_hard, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai = uzduoti_klausima(
-            klausimynas_hard, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai)
+    for question in questionaire_easy.copy():
+        questionaire_easy, win_amount, tries_left, question_number, correct_answers = provide_question(
+            questionaire_easy, win_amount, tries_left, question_number, correct_answers)
+    for question in questionaire_medium.copy():
+        questionaire_medium, win_amount, tries_left, question_number, correct_answers = provide_question(
+            questionaire_medium, win_amount, tries_left, question_number, correct_answers)
+    for question in questionaire_hard.copy():
+        questionaire_hard, win_amount, tries_left, question_number, correct_answers = provide_question(
+            questionaire_hard, win_amount, tries_left, question_number, correct_answers)
 
-def uzduoti_klausima(klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai):
+def provide_question(questionaire, win_amount, tries_left, question_number, correct_answers):
     
-    laimimos_sumos = [1000, 3000, 6000, 15000, 30000, 50000, 75000, 130000, 250000, 440000]
-    klausimo_numeriai = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    atsakymu_raides = ["A", "B", "C", "D"]
-    klausimas = (random.choice(klausimynas))
-    klausimynas.remove(klausimas)
-    pirmas_klausimas = klausimo_numeriai[klausimo_numeris]
-    print(str(pirmas_klausimas) + ". " + klausimas["klausimas"])
-    random_atsakymai = random.sample(klausimas["atsakymai"], len(klausimas["atsakymai"]))
+    WIN_AMOUNTS = [1000, 3000, 6000, 15000, 30000, 50000, 75000, 130000, 250000, 440000]
+    QUESTION_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    ANSWER_LETTERS = ["A", "B", "C", "D"]
+    question = (random.choice(questionaire))
+    questionaire.remove(question)
+    provided_question = QUESTION_NUMBERS[question_number]
+    print(str(provided_question) + ". " + question["question"])
+    random_answers = random.sample(question["answers"], len(question["answers"]))
     print("\nAtsakymų variantai:")
 
-    for raide, atsakymas in zip(atsakymu_raides, random_atsakymai):
-        print(f"{raide}. {atsakymas}")
+    for letter, answer in zip(ANSWER_LETTERS, random_answers):
+        print(f"{letter}. {answer}")
     print()
 
     while True:
         while True:
-            if bandymu_skaicius == 0:
+            if tries_left == 0:
                 print("Jūs išnaudojote visus bandymus.\n")
-                if laimeta_suma >= 180000:
-                    laimeta_suma = 180000
+                if win_amount >= 180000:
+                    win_amount = 180000
                     print("************************************")
-                    print(f"Jūs laimėjote {laimeta_suma} Eur. Sveikiname!")
+                    print(f"Jūs laimėjote {win_amount} Eur. Sveikiname!")
                     print("************************************")
-                    ar_zaisti(1)
-                elif laimeta_suma >= 25000:
-                    laimeta_suma = 25000
+                    to_start(1)
+                elif win_amount >= 25000:
+                    win_amount = 25000
                     print("************************************")
-                    print(f"Jūs laimėjote {laimeta_suma} Eur. Sveikiname!")
+                    print(f"Jūs laimėjote {win_amount} Eur. Sveikiname!")
                     print("************************************")
-                    ar_zaisti(1)
+                    to_start(1)
                 else:
                     print("*****************************************")
                     print("Deja šį kartą Jūs nieko nelaimėjote.\n\nAčiū už dalyvavimą, bandykite kitą kartą!")
                     print("*****************************************")
-                    ar_zaisti(1)
-            atsakymo_raide = input("Kai norėsite stabdyti žaidimą, pasirinkite: S.\nPasirinkite atsakymo variantą: A, B, C ar D.\n").upper()
-            if atsakymo_raide in atsakymu_raides:
-                atsakymas = random_atsakymai[ord(atsakymo_raide)-65]
-                print("Jūs pasirinkote atsakymą:",atsakymas)
+                    to_start(1)
+            answer_letter = input("Kai norėsite stabdyti žaidimą, pasirinkite: S.\nPasirinkite atsakymo variantą: A, B, C ar D.\n").upper()
+            if answer_letter in ANSWER_LETTERS:
+                answer = random_answers[ord(answer_letter)-65]
+                print("Jūs pasirinkote atsakymą:",answer)
                 break
-            elif atsakymo_raide == "S":
-                if laimeta_suma == 0:
+            elif answer_letter == "S":
+                if win_amount == 0:
                     print("*************************************************************************************************")
                     print(f"Jūs nusprendėte nebetęsti žaidimo. Deja šį kartą Jūs nieko nelaimėjote. Bandykite sekantį kartą.")
                     print("*************************************************************************************************")
-                    ar_zaisti(1)
+                    to_start(1)
                 else:
                     print("*********************************************************************************")
-                    print(f"Jūs nusprendėte nebetęsti žaidimo. Jūs laimėjote {laimeta_suma} Eur. Sveikiname!")
+                    print(f"Jūs nusprendėte nebetęsti žaidimo. Jūs laimėjote {win_amount} Eur. Sveikiname!")
                     print("*********************************************************************************")
-                    ar_zaisti(1)
+                    to_start(1)
             else:
                 print("Nėra tokio pasirinkimo.\n")
-        if klausimas["atsakymas"] == atsakymas:
-            print("\nJūsų atsakymas yra teisingas!")
-            laimeta_suma += laimimos_sumos[laimeti_kartai]
-            if laimeta_suma < 1000000:
+        if question["answer"] == answer:
+            print("\nJūsų answer yra teisingas!")
+            win_amount += WIN_AMOUNTS[correct_answers]
+            if win_amount < 1000000:
                 print("******************************************")
-                print(f"Sveikiname, Jūs pasiekėte {laimeta_suma} Eur ribą!")
+                print(f"Sveikiname, Jūs pasiekėte {win_amount} Eur ribą!")
                 print("******************************************\n")
-                return klausimynas, laimeta_suma, bandymu_skaicius, laimeti_kartai+1, klausimo_numeris+1
+                return questionaire, win_amount, tries_left, correct_answers+1, question_number+1
             else:
                 print("\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
                 print("$Sveikiname, Jūs laimėjote milijoną!$")
                 print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-                ar_zaisti(1)
+                to_start(1)
         else:
-            bandymu_skaicius -= 1
-            if bandymu_skaicius > 1:
-                print(f"\nDeja, Jūsų atsakymas yra neteisingas.\n-------------------------------------\nJums liko {bandymu_skaicius} bandymai.\n")
-            elif bandymu_skaicius == 1:
-                print("\nDeja, Jūsų atsakymas yra neteisingas.\n-------------------------------------\nJums liko paskutinis bandymas.\n")
+            tries_left -= 1
+            if tries_left > 1:
+                print(f"\nDeja, Jūsų answer yra neteisingas.\n-------------------------------------\nJums liko {tries_left} bandymai.\n")
+            elif tries_left == 1:
+                print("\nDeja, Jūsų answer yra neteisingas.\n-------------------------------------\nJums liko paskutinis bandymas.\n")
             else:
-                print(f"\nDeja, Jūsų atsakymas yra neteisingas.\n")
-    return klausimynas, laimeta_suma, bandymu_skaicius, klausimo_numeris, laimeti_kartai
+                print(f"\nDeja, Jūsų answer yra neteisingas.\n")
+    return questionaire, win_amount, tries_left, question_number, correct_answers
 
 if __name__ == "__main__":
-    taisykles()
-    ar_zaisti(0)
-    pradeti_zaidima()
+    introduction()
+    to_start("0")
+    start_game()

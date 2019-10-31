@@ -1,0 +1,3 @@
+{ "question": "Kuris iš šių rašytojų ekspresionistas?", "answer": "Boruta", "answers": ["Boruta","Simonaitytė","Cvirka","Mieželaitis" ]}
+{ "question": "Kurio romano autorius yra Viktoras Hugo?", "answer": "Vargdieniai", "answers": ["Vargdieniai","Kaimiečiai","Kalniečiai","Turtuoliai" ]}
+{ "question": "Kaip paleontologijoje vadinami \"velnio nagai\"?", "answer": "Belemnitai", "answers": ["Belemnitai","Amonitai","Trilobitai","Stalagmitai" ]}

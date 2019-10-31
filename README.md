@@ -1,12 +1,16 @@
-## Žaidimas "Kas laimės milijoną?"
+## The game "Who wants to be a Millionaire?"
 
-Žaidimo metu Jums bus pateikta 10 klausimų ir 4 atsakymų variantai: ```A, B, C ir D```.
+# Introduction
 
-Žaidimo metu Jūs galite pasiekti dvi nedegančias sumas: **25 000 Eur** ir **180 000 Eur**. Pirmąją nedegančią sumą pasieksite teisingai atsakę pirmus 4 klausimus, o antrąją - pirmus 7 klausimus.
+The program will provide you 10 questions and 4 answers, accordingly with letters: ```A, B, C and D```.
 
-Kiekvieno klausimo vertė nurodyta žemiau lentelėje.
+During the game you can reach two safe zones: **25 000 Eur** and **180 000 Eur**:
+    * First safe zone will be reached, if you correctly answer first 4 questions;
+    * Second safe zone will be reached, if you correctly answer first 7 questions.
 
-| Klausimas | Vertė |
+Each questions value is provided in the table down below.
+
+| Question | Value |
 | ------ | ------ |
 | 1. | 1 000 Eur |
 | 2. | 4 000 Eur |
@@ -19,10 +23,20 @@ Kiekvieno klausimo vertė nurodyta žemiau lentelėje.
 | 9. | 560 000 Eur |
 | 10. | **1 000 000 Eur** |
 
-Norėdami nesudeginti laimėtos sumos, visada galite stabdyti žaidimą pasirinkę ```S```. 
+In case you want to stop the game and receive reached value - type ```S```. 
 
-Norėdami pradėti žaidimą, terminale paleiskite ```python Millionaire.py```. Pradžioje Jūsų bus paklausta, ar esate pasiruošę pradėti žaidimą. Atsakius ```TAIP``` Jums bus pateiktas pirmas klausimas, o atsakius ```NE``` - programa užsidarys.
+# How to start the game
 
-**Pažymėtina, kad iš viso Jūs turite 3 bandymus atsakyti visus 10 klausimų**. Išnaudojus visus bandymus, žaidimas bus baigtas. 
+1. Make sure you have all the files in one folder;
+2. Using terminal with ```CD``` open the correct folder. Hint: you can go back to previous folder with command ```CD ..```;
+3. In terminal type ```python main.py```.
 
-Pasibaigus žaidimui programa automatiškai paklaus, ar norite žaisti dar kartą, į šį klausimą atsakykite ```TAIP``` arba ```NE```.
+# Conclusion
+
+The game runs in Lithuanian language. In the beginning of the game you will be asked if you want to start the game. If you answer ```TAIP```, the game will start and you will be given the first question. If your input will be ```NE``` - the program will close.
+
+**Please note that you have 3 tries to correctly answer all questions**. After running out of tries, the game will be over. 
+
+After finnishing the game, the program will ask you, if you want to replay the game, answer this question accordingly ```TAIP``` or ```NE```.
+
+Good luck!

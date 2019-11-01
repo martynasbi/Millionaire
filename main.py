@@ -1,16 +1,6 @@
 import random
 import json
 
-def language_data(data_from_txt):
-    with open(data_from_txt, encoding='utf-8') as json_file:
-        data = json.load(json_file)
-    if LT_EN() == "EN":
-        txt_data_lang = data["EN"]
-        return txt_data_lang
-    else:
-        txt_data_lang = data["LT"]
-        return txt_data_lang
-
 def LT_EN():
     while True:
         language = input("Please choose language:\n1. Type \"EN\" for English language\n2. Type \"LT\" for Lithuanian language ").upper()
@@ -25,7 +15,8 @@ def LT_EN():
         else:
             print("Wrong choice.")
 
-language_choice = language_data("LT-EN.txt")
+with open("LT-EN.txt", encoding='utf-8') as json_file:
+    data = json.load(json_file)
 
 def read_questions(questionaire):
     with open(questionaire, encoding='utf-8') as f:
@@ -33,15 +24,19 @@ def read_questions(questionaire):
     questions = [json.loads(question) for question in question_lines]
     return questions
 
-def to_start(start):
+def to_start(start, language):
     beginning = 0
+    english = 0
     while True:
         if start == beginning:
             answer = input(language_choice["begin"]).upper()
         else:
             answer = input(language_choice["replay"]).upper()
         if language_choice["yes"] in answer:
-            start_game()
+            if language == 0:
+                start_game(0)
+            else:
+                start_game(1)
         elif language_choice["no"] in answer:
             print (language_choice["farewell"])
             exit()
@@ -56,17 +51,23 @@ def introduction():
     print(language_choice["introduction3"])
     print("********************************************************************************************************************************************")
 
-def start_game():
+def start_game(language):
     
     tries_left = 3
     win_amount = 0
     correct_answers = 0
     question_number = 0
-    
-    questionaire_easy = read_questions("easy_questions.txt")
-    questionaire_medium = read_questions("medium_questions.txt")
-    questionaire_hard = read_questions("hard_questions.txt")
-    
+    english = 0
+
+    if language == english:
+        questionaire_easy = read_questions("easy_questions_EN.txt")
+        questionaire_medium = read_questions("medium_questions_EN.txt")
+        questionaire_hard = read_questions("hard_questions_EN.txt")
+    else:
+        questionaire_easy = read_questions("easy_questions_LT.txt")
+        questionaire_medium = read_questions("medium_questions_LT.txt")
+        questionaire_hard = read_questions("hard_questions_LT.txt")
+
     for question in questionaire_easy.copy():
         questionaire_easy, win_amount, tries_left, question_number, correct_answers = provide_question(
             questionaire_easy, win_amount, tries_left, question_number, correct_answers)
@@ -104,18 +105,18 @@ def provide_question(questionaire, win_amount, tries_left, question_number, corr
                     print("************************************")
                     print(language_choice["win_amount"].format(win_amount))
                     print("************************************")
-                    to_start(1)
+                    exit()
                 elif win_amount >= 25000:
                     win_amount = 25000
                     print("************************************")
                     print(language_choice["win_amount"].format(win_amount))
                     print("************************************")
-                    to_start(1)
+                    exit()
                 else:
                     print("*****************************************")
                     print(language_choice["no_win"])
                     print("*****************************************")
-                    to_start(1)
+                    exit()
             answer_letter = input(language_choice["choices"]).upper()
             if answer_letter in ANSWER_LETTERS:
                 answer = random_answers[ord(answer_letter)-65]
@@ -126,12 +127,12 @@ def provide_question(questionaire, win_amount, tries_left, question_number, corr
                     print("*************************************************************************************************")
                     print(language_choice["stop_lose"])
                     print("*************************************************************************************************")
-                    to_start(1)
+                    exit()
                 else:
                     print("*********************************************************************************")
                     print(language_choice["stop_win"].format(win_amount))
                     print("*********************************************************************************")
-                    to_start(1)
+                    exit()
             else:
                 print(language_choice["wrong_choice"])
         if question["answer"] == answer:
@@ -146,7 +147,7 @@ def provide_question(questionaire, win_amount, tries_left, question_number, corr
                 print("\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
                 print(language_choice["millionaire"])
                 print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-                to_start(1)
+                exit()
         else:
             tries_left -= 1
             if tries_left > 1:
@@ -158,6 +159,11 @@ def provide_question(questionaire, win_amount, tries_left, question_number, corr
     return questionaire, win_amount, tries_left, question_number, correct_answers
 
 if __name__ == "__main__":
-    introduction()
-    to_start(0)
-    start_game()
+    if LT_EN() == "EN":
+        language_choice = data["EN"]
+        introduction()
+        to_start(0, 0)
+    else:
+        language_choice = data["LT"]
+        introduction()
+        to_start(0, 1)

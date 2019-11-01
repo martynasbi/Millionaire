@@ -1,0 +1,4 @@
+{ "question": "Which of these drinks is colourless?", "answer": "Vodka", "answers": ["Grenadine", "Vodka", "Kir", "Cassis" ]}
+{ "question": "Which of these ancient peoples are known for mummifying bodies?", "answer": "Egyptians", "answers": ["Romans", "Greeks", "Egyptians", "Vikings" ]}
+{ "question": "Santa Claus is usually pictured in a suit consisting of which two colors?", "answer": "Red & white", "answers": ["Green & white","Blue & white","Red & white","Black & white" ]}
+{ "question": "Who in 1986 at the age of 20 became the youngest-ever world heavyweight boxing champion?", "answer": "Mike Tyson", "answers": ["Mike Gatting","Mike Read","Mike Oldfield","Mike Tyson" ]}

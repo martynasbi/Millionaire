@@ -1,0 +1,3 @@
+{ "question": "To what kind of shop would you take a \"prescription\"?", "answer": "Pharmacist", "answers": ["Pharmacist","Tailor","Baker","Butcher" ]}
+{ "question": "What was the first name of the U.S. president known as JFK?", "answer": "John", "answers": ["John","Jeremy","Joel","Jonah" ]}
+{ "question": "Which of these is a fairground attraction?", "answer": "Ferris wheel", "answers": ["Norris wheel","Ferris wheel","Morris wheel","Harris wheel" ]}

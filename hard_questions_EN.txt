@@ -1,0 +1,3 @@
+{ "question": "\"Sheepshank\" and \"granny\" are examples of what?", "answer": "Knots", "answers": ["Knots","Hats","Bread","Battleships" ]}
+{ "question": "Who is the main character in the film \"Braidesmaids\"?", "answer": "Annie", "answers": ["Brynn","Becca","Rita","Annie" ]}
+{ "question": "Which country was known to the Romans as Caledonia?", "answer": "Scotland", "answers": ["Ireland","Scotland","Wales","England" ]}

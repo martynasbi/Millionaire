@@ -1,6 +1,32 @@
 import random
 import json
 
+def language_data(data_from_txt):
+    with open(data_from_txt, encoding='utf-8') as json_file:
+        data = json.load(json_file)
+    if LT_EN() == "EN":
+        txt_data_lang = data["EN"]
+        return txt_data_lang
+    else:
+        txt_data_lang = data["LT"]
+        return txt_data_lang
+
+def LT_EN():
+    while True:
+        language = input("Please choose language:\n1. Type \"EN\" for English language\n2. Type \"LT\" for Lithuanian language ").upper()
+        if "E" in language:
+            print("\nYou have chosen English language.")
+            choice = "EN"
+            return choice
+        elif "L" in language:
+            print("\nJūs pasirinkote Lietuvių kalbą.")
+            choice = "LT"
+            return choice
+        else:
+            print("Wrong choice.")
+
+language_choice = language_data("LT-EN.txt")
+
 def read_questions(questionaire):
     with open(questionaire, encoding='utf-8') as f:
         question_lines = f.read().splitlines()
@@ -11,13 +37,13 @@ def to_start(start):
     beginning = 0
     while True:
         if start == beginning:
-            answer = input("\nAr norite pradėti žaidimą: TAIP / NE\n").upper()
+            answer = input(language_choice["begin"]).upper()
         else:
-            answer = input("\nAr norite kartoti žaidimą: TAIP / NE\n").upper()
-        if "T" in answer:
+            answer = input(language_choice["replay"]).upper()
+        if language_choice["yes"] in answer:
             start_game()
-        elif "N" in answer:
-            print ("\nIki. Lauksime Jūsų sugrįžtant!\n")
+        elif language_choice["no"] in answer:
+            print (language_choice["farewell"])
             exit()
         else:
             continue
@@ -25,9 +51,9 @@ def to_start(start):
 def introduction():
     
     print("********************************************************************************************************************************************")
-    print("Sveiki atvykę į žaidimą \"Kas laimės milijoną?\"!\n\nŽaidimo metu Jums bus pateikta 10 klausimų ir 4 atsakymų variantai.")
-    print("\nĮveikę pirmus 4 klausimus, Jūs užsitikrinsite 25 000 Eur laimėjimą, o įveikę pirmus 7 klausimus, užsitikrinsite net 180 000 Eur laimėjimą!")
-    print(f"\nIš viso Jūs turite 3 bandymus. Išnaudojus visus bandymus, žaidimas bus baigtas.")
+    print(language_choice["introduction1"])
+    print(language_choice["introduction2"])
+    print(language_choice["introduction3"])
     print("********************************************************************************************************************************************")
 
 def start_game():
@@ -63,7 +89,7 @@ def provide_question(questionaire, win_amount, tries_left, question_number, corr
     print(str(provided_question) + ". " + question["question"])
 
     random_answers = random.sample(question["answers"], len(question["answers"]))
-    print("\nAtsakymų variantai:")
+    print(language_choice["answers"])
 
     for letter, answer in zip(ANSWER_LETTERS, random_answers):
         print(f"{letter}. {answer}")
@@ -72,63 +98,63 @@ def provide_question(questionaire, win_amount, tries_left, question_number, corr
     while True:
         while True:
             if tries_left == 0:
-                print("Jūs išnaudojote visus bandymus.\n")
+                print(language_choice["out_of_tries"])
                 if win_amount >= 180000:
                     win_amount = 180000
                     print("************************************")
-                    print(f"Jūs laimėjote {win_amount} Eur. Sveikiname!")
+                    print(language_choice["win_amount"].format(win_amount))
                     print("************************************")
                     to_start(1)
                 elif win_amount >= 25000:
                     win_amount = 25000
                     print("************************************")
-                    print(f"Jūs laimėjote {win_amount} Eur. Sveikiname!")
+                    print(language_choice["win_amount"].format(win_amount))
                     print("************************************")
                     to_start(1)
                 else:
                     print("*****************************************")
-                    print("Deja šį kartą Jūs nieko nelaimėjote.\n\nAčiū už dalyvavimą, bandykite kitą kartą!")
+                    print(language_choice["no_win"])
                     print("*****************************************")
                     to_start(1)
-            answer_letter = input("Kai norėsite stabdyti žaidimą, pasirinkite: S.\nPasirinkite atsakymo variantą: A, B, C ar D.\n").upper()
+            answer_letter = input(language_choice["choices"]).upper()
             if answer_letter in ANSWER_LETTERS:
                 answer = random_answers[ord(answer_letter)-65]
-                print("Jūs pasirinkote atsakymą:",answer)
+                print(language_choice["answer"],answer)
                 break
             elif answer_letter == "S":
                 if win_amount == 0:
                     print("*************************************************************************************************")
-                    print(f"Jūs nusprendėte nebetęsti žaidimo. Deja šį kartą Jūs nieko nelaimėjote. Bandykite sekantį kartą.")
+                    print(language_choice["stop_lose"])
                     print("*************************************************************************************************")
                     to_start(1)
                 else:
                     print("*********************************************************************************")
-                    print(f"Jūs nusprendėte nebetęsti žaidimo. Jūs laimėjote {win_amount} Eur. Sveikiname!")
+                    print(language_choice["stop_win"].format(win_amount))
                     print("*********************************************************************************")
                     to_start(1)
             else:
-                print("Nėra tokio pasirinkimo.\n")
+                print(language_choice["wrong_choice"])
         if question["answer"] == answer:
-            print("\nJūsų answer yra teisingas!")
+            print(language_choice["correct"])
             win_amount += WIN_AMOUNTS[correct_answers]
             if win_amount < 1000000:
                 print("******************************************")
-                print(f"Sveikiname, Jūs pasiekėte {win_amount} Eur ribą!")
+                print(language_choice["reach_goal"].format(win_amount))
                 print("******************************************\n")
                 return questionaire, win_amount, tries_left, correct_answers+1, question_number+1
             else:
-                print("\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-                print("$Sveikiname, Jūs laimėjote milijoną!$")
-                print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+                print("\n$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+                print(language_choice["millionaire"])
+                print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
                 to_start(1)
         else:
             tries_left -= 1
             if tries_left > 1:
-                print(f"\nDeja, Jūsų atsakymas yra neteisingas.\n-------------------------------------\nJums liko {tries_left} bandymai.\n")
+                print(language_choice["tries_left"].format(tries_left))
             elif tries_left == 1:
-                print("\nDeja, Jūsų atsakymas yra neteisingas.\n-------------------------------------\nJums liko paskutinis bandymas.\n")
+                print(language_choice["last_try"])
             else:
-                print(f"\nDeja, Jūsų atsakymas yra neteisingas.\n")
+                print(language_choice["incorrect"])
     return questionaire, win_amount, tries_left, question_number, correct_answers
 
 if __name__ == "__main__":

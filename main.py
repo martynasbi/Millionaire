@@ -30,8 +30,6 @@ def to_start(start, language):
     while True:
         if start == beginning:
             answer = input(language_choice["begin"]).upper()
-        else:
-            answer = input(language_choice["replay"]).upper()
         if language_choice["yes"] in answer:
             if language == 0:
                 start_game(0)
